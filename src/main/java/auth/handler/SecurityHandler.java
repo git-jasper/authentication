@@ -19,7 +19,7 @@ public class SecurityHandler implements HttpHandler {
     }
 
     @Override
-    public void handleRequest(HttpServerExchange httpServerExchange) throws Exception {
+    public void handleRequest(HttpServerExchange httpServerExchange) {
         HeaderValues jwt = httpServerExchange.getRequestHeaders().get("jwt");
         try {
             if (jwt != null) {
@@ -28,7 +28,7 @@ public class SecurityHandler implements HttpHandler {
                 return;
             }
             endRequest(httpServerExchange);
-        } catch (JwtException e) {
+        } catch (Exception e) {
             System.out.println("JWT NOT TRUSTED");
             endRequest(httpServerExchange);
         }
